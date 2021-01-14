@@ -4,7 +4,15 @@ if(!require(Rcpp)) {print("Trying to install Rcpp")
 }
 
 g4m <- new.env()
-sourceCpp("mai.cc", env=g4m)
+
+#sourceCpp("mai.cc", env=g4m)
+u2f <- function(url) {
+   tf <- tempfile( fileext = ".cc")
+   download.file(url, tf, quiet=TRUE)
+   tf
+}
+sourceCpp(u2f("https://raw.githubusercontent.com/GeorgKindermann/g4mR/main/mai.cc"), env=g4m)
+
 g4m$maiInit()
 
 g4mMai <- function(t,p,r,whc,nn,st,swr,co2) {
