@@ -1,5 +1,6 @@
 library(raster)
-#source("../../g4m.r")
+#setwd("../../")
+#source("g4m.r")
 source("https://raw.githubusercontent.com/GeorgKindermann/g4mR/main/g4m.r")
 
 u2f <- function(url) {
@@ -34,9 +35,11 @@ D$whc[i] <- c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,6,1,1,1,1,5,1,1,1,1,
 D$whc[] <- c(0,150,125,100,75,50,15)[findInterval(D$whc, 1:6)+1]
 D$r <- D$r * 1000./(24.*60.*60.)
 
+dT <- 0 #delta Temperature
+mP <- 1 #Precipitation multiplicator
 
 mai <- apply(expand.grid(lapply(dim(D$nn), seq_len)), 1, function(i) {
-    max(g4mMai(D$t[i[1],i[2],], D$p[i[1],i[2],], D$r[i[1],i[2],]
+    max(g4mMai(D$t[i[1],i[2],] + dT, D$p[i[1],i[2],] * mP, D$r[i[1],i[2],]
 , D$whc[i[1],i[2]], D$nn[i[1],i[2]], soilRosetta[D$st[i[1],i[2]]], 0, 0.038))
 })
 
