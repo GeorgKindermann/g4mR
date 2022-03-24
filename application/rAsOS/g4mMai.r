@@ -18,7 +18,7 @@ tfOut <- tempfile(fileext = ".txt")
 g4m$g4mMai(tfIn, tfOut)
 
 unlink(tfIn)
-x <- read.table(tf)
+x <- read.table(tfOut)
 unlink(tfOut)
 
 names(x) <- c("lon", "lat", "mai")
